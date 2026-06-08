@@ -173,7 +173,7 @@
 
   function formatDate(str) {
     if (!str) return '';
-    var d = new Date(str);
+    var d = new Date(str.replace(/\./g, '-'));  // "2026.05.18" → "2026-05-18"
     if (isNaN(d.getTime())) return str;
     return d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
   }
