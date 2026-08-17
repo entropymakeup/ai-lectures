@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>초청장 · 10분만 모십니다</title>
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="onta" />
+<meta property="og:title" content="10분만 초대합니다" />
+<meta property="og:description" content="각자 도메인에서 쌓인 판단을 갖고 있는 분들께, 자신만의 세계를 설계해드립니다. 8월 29일 토요일, 서울 중구." />
+<meta property="og:url" content="https://entropymakeup.github.io/ai-lectures/obsidian/" />
+<meta property="og:image" content="https://entropymakeup.github.io/ai-lectures/obsidian/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="10분만 초대합니다" />
+<meta name="twitter:description" content="각자 도메인에서 쌓인 판단을 갖고 있는 분들께, 자신만의 세계를 설계해드립니다." />
+<meta name="twitter:image" content="https://entropymakeup.github.io/ai-lectures/obsidian/og.png" />
+<meta name="description" content="각자 다른 도메인을 오래 파온 분들께 보내는 초청장. 8월 29일 토요일, 서울 중구, 10분 내외." />
+<meta name="theme-color" content="#05080E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.css" rel="stylesheet" />
+
+<style>
+/* 토큰·히어로·페이드는 onta 정본(client/src/components/registryHero.css)에서 그대로 가져왔다.
+   숫자를 새로 정하지 않는다 — 바뀌면 그쪽을 고치고 여기 옮긴다. */
+:root{
+  --ink:#05080E;
+  --txt:#EAEEF8;
+  --dim:#8B96B0;
+  --v400:#A78BFA;
+  --v600:#7C3AED;
+  --v700:#6C31E3;
+  --cream:#F5F2EA;
+  --onl:#171512;
+  --onl-dim:#6A635A;
+  --mono:"Cascadia Mono",Consolas,ui-monospace,monospace;
+  --ui:"Wanted Sans Variable","Wanted Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --dip:"Diphylleia",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--cream);color:var(--onl);font-family:var(--ui);
+  font-size:17px;line-height:1.9;letter-spacing:-.011em;
+  -webkit-font-smoothing:antialiased;word-break:keep-all}
+h1,h2,p{margin:0}
+
+/* ── 히어로 ─────────────────────────────────── */
+/* 히어로는 정확히 한 화면. 첫 화면에 별자리와 제목, 스크롤하면 바로 편지가 시작된다 */
+.hero{position:relative;display:flex;flex-direction:column;
+  min-height:100vh;padding-top:clamp(76px,17vh,190px);
+  overflow:hidden;background:var(--ink);color:var(--txt)}
+.firefly-canvas{position:absolute;inset:0;z-index:0;width:100%;height:100%;
+  cursor:crosshair;outline:none}
+.firefly-canvas:focus-visible{outline:2px solid var(--v400);outline-offset:-4px}
+.hero-orb{position:absolute;z-index:0;border-radius:50%;filter:blur(100px);pointer-events:none}
+.hero-orb-one{top:-190px;left:-160px;width:560px;height:560px;background:#6C31E3;opacity:.26}
+.hero-orb-two{top:38%;right:-110px;width:400px;height:400px;background:#1E6BFF;opacity:.14}
+.hero-orb-three{bottom:-240px;left:34%;width:440px;height:440px;background:#7C3AED;opacity:.13}
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* 노드는 위쪽에 밝게, 글자는 아래쪽 어두운 자리에. 제목 위로 노드가 올라오지 않게 막는 층 */
+.hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,8,14,0) 0%,rgba(5,8,14,0) 22%,rgba(5,8,14,.62) 46%,rgba(5,8,14,.80) 62%,rgba(5,8,14,.55) 84%,rgba(5,8,14,0) 100%)}
+
+.hero-stage{position:relative;z-index:4;width:100%;max-width:820px;
+  margin:0 auto;padding:0 26px}
+.label{font-family:var(--ui);font-size:14px;font-weight:600;letter-spacing:.04em;
+  color:var(--v400);margin-bottom:26px;display:flex;align-items:center;gap:7px}
+.label .em{font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;font-size:15px;line-height:1}
+.hero-title{font-family:var(--dip);font-weight:400;
+  font-size:clamp(40px,10vw,74px);line-height:1.24;letter-spacing:-.032em;
+  color:var(--txt);-webkit-text-stroke:.4px var(--txt);paint-order:stroke fill}
+.hero-title strong{font-weight:400;-webkit-text-stroke:2.1px var(--txt)}
+.hero-title em{font-style:normal;color:var(--v400);-webkit-text-stroke:2.1px var(--v400)}
+.hero-line-two{margin-top:30px;font-size:18px;line-height:1.8;color:var(--dim);max-width:26em}
+/* 노드 안내는 우측 상단 가장자리. 본문 서체를 쓴다 — 모노는 여기서 이물감이 있다 */
+.hero-tip{position:absolute;z-index:4;top:20px;right:22px;max-width:13em;
+  font-family:var(--ui);font-size:11.5px;line-height:1.55;letter-spacing:-.005em;
+  color:#7C8AA6;text-align:right}
+.hero-outro{position:relative;z-index:2;flex:1 1 auto;min-height:14vh;pointer-events:none}
+.hero-fade{position:absolute;left:0;right:0;bottom:0;height:30vh;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,rgba(245,242,234,0) 0%,rgba(245,242,234,.45) 62%,var(--cream) 100%)}
+
+/* ── 편지 ───────────────────────────────────── */
+.letter{max-width:640px;margin:0 auto;padding:8px 26px 84px}
+.letter .hi{font-family:var(--dip);font-size:22px;letter-spacing:-.02em;
+  color:var(--onl);-webkit-text-stroke:.3px var(--onl);paint-order:stroke fill}
+.letter p+p{margin-top:26px}
+.letter .body p{color:#2E2A24}
+.letter .body{margin-top:26px}
+
+.where{margin-top:44px;padding-top:26px;border-top:1px solid #DDD6C6;
+  font-size:16.5px;color:#3B3730}
+.reply{margin-top:26px}
+.reply>p{font-size:16.5px;color:#3B3730}
+.reply ol{margin:16px 0 0;padding:0;list-style:none;counter-reset:r}
+.reply li{counter-increment:r;position:relative;padding-left:30px;margin-top:12px;
+  font-size:16.5px;line-height:1.8;color:#2E2A24}
+.reply li::before{content:counter(r);position:absolute;left:0;top:0;width:21px;height:21px;
+  margin-top:6px;border-radius:50%;background:#EDE6F8;color:var(--v600);
+  font-family:var(--ui);font-size:12px;font-weight:700;line-height:21px;text-align:center}
+.reply .aside{display:block;margin-top:4px;font-size:15px;color:var(--onl-dim);line-height:1.72}
+
+.sign{margin-top:46px;font-family:var(--dip);font-size:20px;letter-spacing:-.02em;color:var(--onl)}
+.sign span{display:block;margin-top:6px;font-family:var(--ui);font-size:13.5px;
+  letter-spacing:.02em;color:var(--onl-dim)}
+
+footer{background:var(--ink);color:#6B7488;font-size:13px;padding:26px 0 44px}
+footer div{max-width:640px;margin:0 auto;padding:0 26px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+footer b{font-family:var(--dip);font-weight:400;font-size:16px;color:#98A2B8;letter-spacing:.06em}
+
+@media (min-width:680px){
+  .letter{padding:20px 34px 96px}
+  .hero-stage{padding:0 34px}
+  .hero-tip{top:26px;right:34px;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){.firefly-canvas{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas class="firefly-canvas" id="ff" role="button" tabindex="0"
+          aria-label="노드 배경. 클릭하면 연결된 쪽으로 전기가 퍼집니다."></canvas>
+  <div class="hero-orb hero-orb-one"></div>
+  <div class="hero-orb hero-orb-two"></div>
+  <div class="hero-orb hero-orb-three"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <p class="hero-tip">노드를 클릭하면 연결된 쪽으로 전기가 퍼집니다</p>
+
+  <div class="hero-stage">
+    <p class="label"><span class="em">✉️</span>초청장</p>
+    <h1 class="hero-title"><strong>10분</strong>만<br /><em>초대</em>합니다</h1>
+    <p class="hero-line-two">각자 도메인에서 쌓인 판단을 갖고 있는 분들께,
+      자신만의 세계를 설계해드립니다.</p>
+  </div>
+
+  <div class="hero-outro" aria-hidden="true"></div>
+  <div class="hero-fade" aria-hidden="true"></div>
+</header>
+
+<main class="letter">
+  <p class="hi">안녕하세요, 김준영입니다.</p>
+
+  <div class="body">
+    <p>저는 AI가 오기 전부터 옵시디언을 썼습니다. 하루 3~4시간씩 제 방식으로 정리하는 일을
+      5년 가까이 이어왔습니다. 시작은 무언가를 잊어버릴까 하는 두려움이었는데, 지금은 그게
+      제 사고의 구조가 되었습니다.</p>
+
+    <p>요즘 지식을 정리하고 싶어 하는 분이 부쩍 늘었습니다. AI가 좋아지면서, 저처럼 강박에
+      가까운 기록 습관이 없는 분도 기록이 가능해졌으니까요. 그래서 요청을 받아 몇 번 강의를
+      했고, 하면서 제 쪽에 아쉬움이 하나 남았습니다.</p>
+
+    <p>저는 지식 관리라는 도메인의 광인입니다. 남들보다 깊이 파고들 수 있었고, 그만큼
+      정리한 것도 쓸 만해졌습니다. 다만 그렇게 쌓인 지식을 다루려면 사고하는 힘이 함께
+      필요했고, 그런 분을 자주 만나지는 못했습니다. 그래서 자기 도메인이 뚜렷한 분들,
+      그 안에 쌓인 판단을 온톨로지로 세우고 자기 LLM 위키로 만들 수 있는 분들과
+      이 이야기를 제대로 나눠보고 싶어졌습니다.</p>
+
+    <p>그래서 이번 모임은 10분 내외로만 엽니다. 이 편지도 그렇게 고른 분들께만 보냅니다.
+      이 자리에서 여러분은 각자의 도메인에 맞춰, 그리고 자기 자신에 맞춰 조율된 LLM 위키를
+      세우게 됩니다. 여러분의 사고 흐름이 그대로 담긴 데이터를 갖게 됩니다.</p>
+  </div>
+
+  <p class="where">8월 29일 토요일, 서울 중구입니다.
+    첫 모임이라 장소 대여비만 나눠서 받습니다.</p>
+
+  <div class="reply">
+    <p>답장으로 두 가지만 알려주시면 됩니다.</p>
+    <ol>
+      <li>점심과 저녁 중 안 되는 시간
+        <span class="aside">모아서 그날 시간을 정하겠습니다.</span></li>
+      <li>요즘 머릿속에서 제일 정리가 안 되는 주제 하나
+        <span class="aside">그날 그 주제로 같이 세워보려고 여쭙습니다.</span></li>
+    </ol>
+  </div>
+
+  <p class="sign">김준영<span>Ethan · onta</span></p>
+</main>
+
+<footer>
+  <div>
+    <b>onta</b>
+    <span>초대받은 분에게만 보내는 초청장입니다</span>
+  </div>
+</footer>
+
+<script>
+/* onta 정본 client/src/components/FireflyCanvas.tsx 를 바닐라로 그대로 옮긴 것.
+   상수(전도 속도 0.3px/ms · 시냅스 지연 45ms · 감쇠 0.72 · 임계 0.14 · 허브 중계)와
+   호흡 주기·색은 손대지 않았다. 고칠 일이 생기면 정본을 고치고 다시 옮긴다. */
+(function(){
+  var canvas=document.getElementById('ff');
+  if(!canvas)return;
+  var context=canvas.getContext('2d');
+  if(!context)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+
+  var HUB_HALOS=[[167,139,250],[255,214,140],[140,184,255]];
+  var seed=20260814,fireflies=[],width=0,height=0,maximumDistance=0,time=0;
+  var animationFrame=0,resizeTimer=0,surgeTimers=[];
+  var mouse={x:-9999,y:-9999,active:false};
+  function random(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff}
+
+  function build(){
+    var scale=Math.min(window.devicePixelRatio||1,2);
+    width=canvas.clientWidth;height=canvas.clientHeight;
+    canvas.width=width*scale;canvas.height=height*scale;
+    context.setTransform(scale,0,0,scale,0,0);
+    seed=20260814;fireflies=[];
+    var count=Math.round(Math.min(96,Math.max(28,(width*height)/14000)));
+    var hubCount=Math.min(7,Math.max(3,Math.round(count*0.07)));
+    for(var index=0;index<count;index+=1){
+      var depth=random();
+      var tier=index<hubCount?'hub':(random()<0.55?'medium':'small');
+      var smallRadius=0.9+depth*1.6;
+      var radius=tier==='hub'?9+depth*5:(tier==='medium'?smallRadius*2:smallRadius);
+      fireflies.push({
+        x:random()*width,y:random()*height,
+        angle:random()*Math.PI*2,
+        speed:tier==='hub'?0.03+random()*0.05:0.1+random()*0.16,
+        wobble:random()*Math.PI*2,wobbleSpeed:0.004+random()*0.008,
+        depth:depth,radius:radius,
+        blur:tier==='hub'?10+depth*8:2.2+depth*7,
+        period:2.4+random()*3.6,phase:random()*Math.PI*2,
+        warm:tier!=='hub'&&random()<0.28,
+        charge:0,tier:tier,
+        halo:tier==='hub'?HUB_HALOS[index%HUB_HALOS.length]:[150,190,255],
+        igniting:false,ignitePeak:0
+      });
+    }
+    maximumDistance=Math.min(240,width/5);
+  }
+
+  function linkRange(first,second){
+    return (first.tier==='hub'||second.tier==='hub')?maximumDistance*1.9:maximumDistance;
+  }
+  function neighbors(start){
+    var out=[];
+    for(var i=0;i<fireflies.length;i++){
+      if(i===start)continue;
+      var dx=fireflies[start].x-fireflies[i].x,dy=fireflies[start].y-fireflies[i].y;
+      if(Math.sqrt(dx*dx+dy*dy)<linkRange(fireflies[start],fireflies[i]))out.push(i);
+    }
+    return out;
+  }
+
+  /* 신경 신호 전파: 거리 비례 전도 + 시냅스당 고정 지연 + 거리 감쇠 + 불응기.
+     허브는 중계기 — 도착한 신호를 다시 최대 세기로 내보낸다. */
+  function surge(start){
+    var CONDUCTION_SPEED=0.3,SYNAPTIC_DELAY=45,ATTENUATION=0.72,THRESHOLD=0.14;
+    var best={};best[start]={delay:0,strength:1};
+    var wave=[start],hops=0;
+    while(wave.length>0&&hops<9){
+      var next=[];
+      for(var w=0;w<wave.length;w++){
+        var index=wave[w],current=best[index];
+        if(!current)continue;
+        var ns=neighbors(index);
+        for(var k=0;k<ns.length;k++){
+          var neighbor=ns[k];
+          var ex=fireflies[index].x-fireflies[neighbor].x,ey=fireflies[index].y-fireflies[neighbor].y;
+          var edge=Math.sqrt(ex*ex+ey*ey);
+          var delay=current.delay+edge/CONDUCTION_SPEED+SYNAPTIC_DELAY;
+          var strength=fireflies[neighbor].tier==='hub'?1:current.strength*ATTENUATION;
+          if(strength<THRESHOLD)continue;
+          var known=best[neighbor];
+          if(!known||delay<known.delay){best[neighbor]={delay:delay,strength:strength};next.push(neighbor);}
+        }
+      }
+      wave=next;hops+=1;
+    }
+    Object.keys(best).forEach(function(key){
+      var item=best[key],idx=Number(key);
+      surgeTimers.push(window.setTimeout(function(){
+        var firefly=fireflies[idx];
+        if(!firefly||firefly.charge>0.25)return; /* 불응기 — 방금 발화한 뉴런은 쉰다 */
+        firefly.igniting=true;firefly.ignitePeak=item.strength;
+      },item.delay));
+    });
+  }
+
+  function activateClosest(clientX,clientY){
+    var bounds=canvas.getBoundingClientRect();
+    var x=clientX-bounds.left,y=clientY-bounds.top;
+    var closest=-1,closestDistance=Infinity;
+    for(var i=0;i<fireflies.length;i++){
+      var d=(fireflies[i].x-x)*(fireflies[i].x-x)+(fireflies[i].y-y)*(fireflies[i].y-y);
+      if(d<closestDistance){closestDistance=d;closest=i;}
+    }
+    if(closest>=0)surge(closest);
+  }
+
+  var FLOW_RADIUS=190;
+
+  function draw(){
+    time+=1/60;
+    context.clearRect(0,0,width,height);
+    for(var i=0;i<fireflies.length;i++){
+      var f=fireflies[i];
+      f.wobble+=f.wobbleSpeed;
+      f.angle+=Math.sin(f.wobble)*0.02;
+      f.x+=Math.cos(f.angle)*f.speed;
+      f.y+=Math.sin(f.angle)*f.speed*0.7;
+      /* 포인터 주변은 물이 돌 틈을 지나듯 휘어 흐른다. 허브는 무거워 거의 밀리지 않는다. */
+      if(mouse.active){
+        var dx=f.x-mouse.x,dy=f.y-mouse.y,distance=Math.sqrt(dx*dx+dy*dy);
+        if(distance>0.5&&distance<FLOW_RADIUS){
+          var influence=(1-distance/FLOW_RADIUS)*(1-distance/FLOW_RADIUS);
+          var mass=f.tier==='hub'?0.12:(f.tier==='medium'?0.55:1);
+          f.x+=((-dy/distance)*0.85+(dx/distance)*0.18)*influence*mass;
+          f.y+=((dx/distance)*0.85+(dy/distance)*0.18)*influence*mass;
+        }
+      }
+      if(f.x<-60)f.x=width+60;
+      if(f.x>width+60)f.x=-60;
+      if(f.y<-60)f.y=height+60;
+      if(f.y>height+60)f.y=-60;
+      if(f.igniting){
+        f.charge=Math.min(f.ignitePeak,f.charge+0.09);
+        if(f.charge>=f.ignitePeak)f.igniting=false;
+      }else if(f.charge>0){
+        f.charge=Math.max(0,f.charge-0.012);
+      }
+    }
+
+    for(var a=0;a<fireflies.length;a++){
+      for(var b=a+1;b<fireflies.length;b++){
+        var first=fireflies[a],second=fireflies[b];
+        var range=linkRange(first,second);
+        var lx=first.x-second.x,ly=first.y-second.y;
+        var dist=Math.sqrt(lx*lx+ly*ly);
+        if(dist>range)continue;
+        var near=1-dist/range;
+        var hubLink=first.tier==='hub'||second.tier==='hub';
+        var hot=Math.min(first.charge,second.charge);
+        if(hot>0.01){
+          context.strokeStyle='rgba(200,175,255,'+Math.min(1,0.25+hot*0.9).toFixed(3)+')';
+          context.lineWidth=1+hot*1.8;
+          context.shadowColor='rgba(167,139,250,0.9)';
+          context.shadowBlur=10*hot;
+        }else{
+          context.strokeStyle='rgba(150,175,225,'+(near*(hubLink?0.15:0.075)).toFixed(3)+')';
+          context.lineWidth=hubLink?0.9:0.7;
+          context.shadowBlur=0;
+        }
+        context.beginPath();context.moveTo(first.x,first.y);context.lineTo(second.x,second.y);context.stroke();
+      }
+    }
+
+    context.shadowBlur=0;
+    for(var j=0;j<fireflies.length;j++){
+      var d2=fireflies[j];
+      var breathing=0.28+0.72*Math.pow((Math.sin(time*(Math.PI*2/d2.period)+d2.phase)+1)/2,1.7);
+      var luminance=breathing*(0.35+0.65*d2.depth);
+      if(d2.tier==='hub')luminance=Math.max(luminance,0.5);
+      var charged=d2.charge;
+      var core=d2.tier==='hub'?[244,240,255]:(d2.warm?[255,236,190]:[225,236,255]);
+      var halo=charged>0?[167,139,250]:(d2.tier==='hub'?d2.halo:(d2.warm?[255,214,140]:d2.halo));
+      if(charged>0)luminance=Math.max(luminance,0.55+0.45*charged);
+      var radius=d2.radius*(1+charged*0.8);
+      var blur=d2.blur*(1+charged*0.5);
+      var haloRadius=radius+blur*2.2;
+      var gradient=context.createRadialGradient(d2.x,d2.y,0,d2.x,d2.y,haloRadius);
+      gradient.addColorStop(0,'rgba('+halo[0]+','+halo[1]+','+halo[2]+','+(0.46*luminance).toFixed(3)+')');
+      gradient.addColorStop(0.45,'rgba('+halo[0]+','+halo[1]+','+halo[2]+','+(0.14*luminance).toFixed(3)+')');
+      gradient.addColorStop(1,'rgba('+halo[0]+','+halo[1]+','+halo[2]+',0)');
+      context.fillStyle=gradient;
+      context.beginPath();context.arc(d2.x,d2.y,haloRadius,0,Math.PI*2);context.fill();
+      var coreOpacity=Math.min(1,luminance*(1-d2.depth*0.3));
+      context.fillStyle='rgba('+core[0]+','+core[1]+','+core[2]+','+coreOpacity.toFixed(3)+')';
+      context.beginPath();context.arc(d2.x,d2.y,Math.max(0.7,radius*0.56),0,Math.PI*2);context.fill();
+    }
+    animationFrame=requestAnimationFrame(draw);
+  }
+
+  build();draw();
+  canvas.addEventListener('click',function(e){activateClosest(e.clientX,e.clientY)});
+  canvas.addEventListener('pointermove',function(e){
+    var bounds=canvas.getBoundingClientRect();
+    mouse.x=e.clientX-bounds.left;mouse.y=e.clientY-bounds.top;mouse.active=true;
+  });
+  canvas.addEventListener('pointerleave',function(){mouse.active=false});
+  canvas.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      var bounds=canvas.getBoundingClientRect();
+      activateClosest(bounds.left+bounds.width/2,bounds.top+bounds.height/2);
+    }
+  });
+  window.addEventListener('resize',function(){
+    window.clearTimeout(resizeTimer);resizeTimer=window.setTimeout(build,150);
+  });
+})();
+</script>
+</body>
+</html>
